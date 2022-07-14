@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const { User } = require('../database/models');
 
-const authService = {
+const userService = {
   validateBody: (data) => {
     const schema = Joi.object({
       displayName: Joi.string().required().min(8),
@@ -52,4 +52,4 @@ const authService = {
 
 };
 
-module.exports = authService;
+module.exports = userService;
