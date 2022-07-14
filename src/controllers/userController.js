@@ -10,6 +10,11 @@ const userController = {
 
     res.status(201).json({ token });
   },
+
+  findAll: async (_req, res) => {
+    const result = await userService.findAll();
+    res.status(200).json(result);
+  },
 };
 
 module.exports = userController;

@@ -20,7 +20,6 @@ const authService = {
   create: async (data) => {
     const { email } = data;
     const getUser = await User.findOne({ where: { email } });
-
     if (getUser) {
       const e = new Error('User already registered');
       e.name = 'ConflictError';
@@ -28,6 +27,16 @@ const authService = {
     }
 
     await User.create(data);
+  },
+
+  findAll: async () => {
+    const result = await User.findAll({ 
+      attributes: { exclude: ['password'] } });
+    if (!result) {
+      const e = new Error('Something went wrong!');
+      throw e;
+    }
+    return result;
   },
 
 };

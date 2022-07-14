@@ -12,6 +12,11 @@ const authController = {
 
   validateToken: (req, res, next) => {
     const { authorization } = req.headers;
+    if (!authorization.length) {
+      const error = new Error('Token not found');
+      error.name = 'Authorization';
+      throw error;
+    }
    
     jwtService.validateToken(authorization);
 

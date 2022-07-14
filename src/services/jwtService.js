@@ -7,13 +7,14 @@ const jwtService = {
     return token;
   },
 
-  validateToken: (token) => {
+  validateToken: (data) => {
     try {
-      const data = jwt.verify(token, process.env.JWT_SECRET);
-      return data;
+      const payload = jwt.verify(data, process.env.JWT_SECRET);
+      return payload;
     } catch (e) {
-      const error = new Error('Faça login');
-      error.name = 'UnauthorizedError';
+      console.log('oi');
+      const error = new Error('Expired or invalid token');
+      error.name = 'Authorization';
       throw error; 
     }
   },
