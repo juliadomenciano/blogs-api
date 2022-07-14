@@ -15,6 +15,12 @@ const userController = {
     const result = await userService.findAll();
     res.status(200).json(result);
   },
+
+  findById: async (req, res) => {
+    const { id } = req.params;
+    const result = await userService.findById(id);
+    res.status(200).json(result);
+  },
 };
 
 module.exports = userController;
