@@ -10,10 +10,10 @@ const userController = {
     res.status(201).json(result);
   },
 
-  // findAll: async (_req, res) => {
-  //   const result = await userService.findAll();
-  //   res.status(200).json(result);
-  // },
+  findAll: async (_req, res) => {
+    const result = await categoriesService.findAll();
+    res.status(200).json(result);
+  },
 
   // findById: async (req, res) => {
   //   const { id } = req.params;

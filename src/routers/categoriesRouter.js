@@ -5,7 +5,7 @@ const categoriesController = require('../controllers/categoriesController');
 const router = Router();
 
 router.post('/', validateToken, categoriesController.create);
-// router.get('/:id', validateToken, userController.findById);
-// router.get('/', validateToken, userController.findAll);
+// router.get('/:id', validateToken, categoriesController.findById);
+router.get('/', validateToken, categoriesController.findAll);
 
 module.exports = router;

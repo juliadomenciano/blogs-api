@@ -33,16 +33,15 @@ const CategoriesService = {
     return getCategory;
   },
 
-  // findById: async (id) => {
-  //   const result = await User.findByPk(id, {
-  //     attributes: { exclude: ['password'] } });
-  //   if (!result) {
-  //     const e = new Error('User does not exist');
-  //     e.name = 'NotFoundError';
-  //     throw e;
-  //   }
-  //   return result;
-  // },
+  findAll: async () => {
+    const result = await Category.findAll();
+    if (!result) {
+      const e = new Error('Something went wrong!');
+      e.name = 'NotFoundError';
+      throw e;
+    }
+    return result;
+  },
 
 };
 
