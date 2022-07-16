@@ -1,6 +1,6 @@
 const Joi = require('joi');
 const Sequelize = require('sequelize');
-const { BlogPost, PostCategory, Category } = require('../database/models');
+const { BlogPost, PostCategory, Category, User } = require('../database/models');
 const config = require('../database/config/config');
 
 const sequelize = new Sequelize(config.development);
@@ -60,6 +60,19 @@ const postService = {
       e.name = 'ValidationError';
       throw e;
     }
+    return result;
+  },
+
+  getPosts: async () => {
+    const result = await BlogPost.findAll({
+      include: [{ model: User, as: 'user', attributes: { exclude: 'password' } },
+      { model: Category, as: 'categories', through: { attributes: [] } }],
+    });
+    console.log(result);
+    // if (!result) {
+    //   const e = new Error('something went wrong');
+    //   throw e;
+    // }
     return result;
   },
 

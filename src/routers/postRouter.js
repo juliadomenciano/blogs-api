@@ -5,6 +5,7 @@ const postController = require('../controllers/postController');
 const router = Router();
 
 router.post('/', validateToken, postController.create);
+router.get('/', validateToken, postController.getPosts);
 // router.get('/', validateToken, postController.findAll);
 
 module.exports = router;

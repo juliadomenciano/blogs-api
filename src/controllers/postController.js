@@ -15,10 +15,10 @@ const postController = {
     res.status(201).json(result);
   },
 
-  // findAll: async (_req, res) => {
-  //   const result = await postService.findAll();
-  //   res.status(200).json(result);
-  // },
+  getPosts: async (_req, res) => {
+    const result = await postService.getPosts();
+    res.status(200).json(result);
+  },
 
   // findById: async (req, res) => {
   //   const { id } = req.params;
