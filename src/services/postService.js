@@ -68,11 +68,23 @@ const postService = {
       include: [{ model: User, as: 'user', attributes: { exclude: 'password' } },
       { model: Category, as: 'categories', through: { attributes: [] } }],
     });
-    console.log(result);
-    // if (!result) {
-    //   const e = new Error('something went wrong');
-    //   throw e;
-    // }
+    if (!result) {
+      const e = new Error('something went wrong');
+      throw e;
+    }
+    return result;
+  },
+
+  findPostById: async (data) => {
+    const result = await BlogPost.findByPk(data, {
+      include: [{ model: User, as: 'user', attributes: { exclude: 'password' } },
+      { model: Category, as: 'categories', through: { attributes: [] } }],
+    });
+    if (!result) {
+      const e = new Error('Post does not exist');
+      e.name = 'NotFoundError'; 
+      throw e;
+    }
     return result;
   },
 
