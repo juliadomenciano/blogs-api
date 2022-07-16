@@ -3,7 +3,6 @@ const categoriesService = require('../services/categoriesService');
 const userController = {
   create: async (req, res) => {
     const { name } = req.body;
-    console.log(name);
     await categoriesService.validateBody(req.body);
     await categoriesService.create(name);
     const result = await categoriesService.listByName(name);

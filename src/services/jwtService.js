@@ -12,7 +12,6 @@ const jwtService = {
       const payload = jwt.verify(data, process.env.JWT_SECRET);
       return payload;
     } catch (e) {
-      console.log('oi');
       const error = new Error('Expired or invalid token');
       error.name = 'Authorization';
       throw error; 

@@ -13,7 +13,6 @@ const CategoriesService = {
 
   create: async (data) => {
     const name = data;
-    console.log(name);
     const getCategory = await Category.findOne({ where: { name } });
     if (getCategory) {
       const e = new Error('Category already registered');
@@ -37,6 +36,16 @@ const CategoriesService = {
     const result = await Category.findAll();
     if (!result) {
       const e = new Error('Something went wrong!');
+      e.name = 'NotFoundError';
+      throw e;
+    }
+    return result;
+  },
+
+  findById: async (data) => {
+    const result = await Category.findByPk(data);
+    if (!result) {
+      const e = new Error('Category not found!');
       e.name = 'NotFoundError';
       throw e;
     }
