@@ -4,6 +4,7 @@ const { BlogPost, PostCategory, Category, User } = require('../database/models')
 const config = require('../database/config/config');
 
 const sequelize = new Sequelize(config.development);
+const { Op } = Sequelize;    
 
 const postService = {
   validateBody: (data) => {
@@ -121,6 +122,16 @@ const postService = {
       throw e;
     }
     await BlogPost.destroy({ where: { id } });
+  },
+
+  searchPost: async (data) => {
+    const query = `%${data}%`;
+    const result = await BlogPost.findAll({
+      where: { [Op.or]: [{ title: { [Op.like]: query } }, { content: { [Op.like]: query } }] },
+      include: [{ model: User, as: 'user', attributes: { exclude: 'password' } },
+      { model: Category, as: 'categories', through: { attributes: [] } }],
+    });
+    return result;
   },
 };
 
