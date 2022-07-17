@@ -36,6 +36,16 @@ const postController = {
     const result = await postService.findPostById(id);
     res.status(200).json(result);
   },
+
+  deletePost: async (req, res) => {
+    const { id } = req.params;
+    const { authorization } = req.headers;
+    const { data } = await jwtService.validateToken(authorization);
+    const userId = data.id;
+    await postService.deletePost(userId, id);
+    console.log('controller');
+    res.status(204).send();
+  },
 };
 
 module.exports = postController;
