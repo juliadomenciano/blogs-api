@@ -12,9 +12,7 @@ const postService = {
       content: Joi.string().required(),
       categoryIds: Joi.array().required().min(1),
     });
-
     const { error, value } = schema.validate(data);
-
     if (error) {
       if (error.message.includes('categoryIds')) {
         console.log(error);
@@ -26,7 +24,20 @@ const postService = {
         e.name = 'ValidationError';
         throw e;
     }
-    
+    return value;
+  },
+
+  validateUpdate: (data) => {
+    const schema = Joi.object({
+      title: Joi.string().required(),
+      content: Joi.string().required(),
+    });
+    const { error, value } = schema.validate(data);
+    if (error) {
+      const e = new Error('Some required fields are missing');
+        e.name = 'ValidationError';
+        throw e;
+    }
     return value;
   },
 
@@ -86,6 +97,15 @@ const postService = {
       throw e;
     }
     return result;
+  },
+
+  updatePost: async (userId, id, data) => {
+    if (userId !== Number(id)) {
+      const e = new Error('Unauthorized user');
+      e.name = 'Authorization'; 
+      throw e;
+    }
+    await BlogPost.update(data, { where: { id } });
   },
 
 };

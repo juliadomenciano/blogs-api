@@ -25,6 +25,17 @@ const postController = {
     const result = await postService.findPostById(id);
     res.status(200).json(result);
   },
+
+  updatePost: async (req, res) => {
+    const { id } = req.params;
+    const { authorization } = req.headers;
+    const { data } = await jwtService.validateToken(authorization);
+    const userId = data.id;
+    await postService.validateUpdate(req.body);
+    await postService.updatePost(userId, id, req.body);
+    const result = await postService.findPostById(id);
+    res.status(200).json(result);
+  },
 };
 
 module.exports = postController;
