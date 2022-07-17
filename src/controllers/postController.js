@@ -43,7 +43,6 @@ const postController = {
     const { data } = await jwtService.validateToken(authorization);
     const userId = data.id;
     await postService.deletePost(userId, id);
-    console.log('controller');
     res.status(204).send();
   },
 };

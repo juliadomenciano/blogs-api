@@ -1,5 +1,6 @@
 const authService = require('../services/authService');
 const userService = require('../services/userService');
+const jwtService = require('../services/jwtService');
 
 const userController = {
   create: async (req, res) => {
@@ -20,6 +21,14 @@ const userController = {
     const { id } = req.params;
     const result = await userService.findById(id);
     res.status(200).json(result);
+  },
+
+  deleteMe: async (req, res) => {
+    const { authorization } = req.headers;
+    const { data } = await jwtService.validateToken(authorization);
+    const userId = data.id;
+    await userService.deleteMe(userId);
+    res.status(204).send();
   },
 };
 

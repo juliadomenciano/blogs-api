@@ -115,16 +115,13 @@ const postService = {
       e.name = 'NotFoundError'; 
       throw e;
     }
-
     if (checkBlogId.userId !== userId) {
       const e = new Error('Unauthorized user');
       e.name = 'Authorization'; 
       throw e;
     }
-    
     await BlogPost.destroy({ where: { id } });
   },
-
 };
 
 module.exports = postService;

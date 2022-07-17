@@ -50,6 +50,9 @@ const userService = {
     return result;
   },
 
+  deleteMe: async (id) => {
+    await User.destroy({ where: { id } });
+  },
 };
 
 module.exports = userService;
